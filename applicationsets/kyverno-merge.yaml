@@ -11,10 +11,8 @@ spec:
           - clusters:
               selector:
                 matchExpressions:
-                  - key: cluster
-                    operator: In
-                    values:
-                      - in-cluster
+                  - key: argocd.argoproj.io/secret-type
+                    operator: DoesNotExist
               values:
                 path: kyverno/1.7.1
           - list:
