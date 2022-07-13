@@ -4,25 +4,12 @@ metadata:
   name: kyverno-crd-merge
 spec:
   generators:
-    - merge:
-        mergeKeys:
-          - name
-        generators:
-          - clusters:
-              selector:
-                matchExpressions:
-                  - key: cluster
-                    operator: In
-                    values:
-                      - in-cluster
-              values:
-                path: kyverno-crd/1.7.1
-          - list:
-              elements:
-                - name: vcluster-15
-                  url: ''
-                  values:
-                    path: kyverno-crd/1.7.1
+    - list:
+        elements:
+          - name: in-cluster
+            url: 'https://kubernetes.default.svc'
+            values:
+              path: kyverno-crd/1.7.1
   template:
     metadata:
       name: 'kyverno-crd-me-{{name}}'
