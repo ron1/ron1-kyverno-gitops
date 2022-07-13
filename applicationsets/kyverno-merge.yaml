@@ -1,4 +1,4 @@
-apiVersion: kyvernoproj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: kyverno-merge
@@ -17,12 +17,17 @@ spec:
                       - in-cluster
               values:
                 path: kyverno/1.7.1
+          - list:
+              elements:
+                - name: vcluster-15
+                  url: ''
+                  values:
+                    path: kyverno-crd/1.7.1
   template:
     metadata:
       name: 'kyverno-me-{{name}}'
       labels:
         appset: kyverno-merge
-        environmentId: '{{metadata.labels.environmentId}}'
       annotations:
         version: '{{values.path}}'
     spec:
