@@ -22,7 +22,6 @@ spec:
       name: 'kyverno-crd-me-{{name}}'
       labels:
         appset: kyverno-crd-merge
-        environmentId: '{{metadata.labels.environmentId}}'
       annotations:
         version: '{{values.path}}'
     spec:
