@@ -1,0 +1,7 @@
+installCRDs: false
+replicaCount: 3
+resources:
+  limits:
+    memory: 384Mi
+serviceMonitor:
+  enabled: true
