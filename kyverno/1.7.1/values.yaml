@@ -2,3 +2,5 @@ installCRDs: true
 replicaCount: 3
 serviceMonitor:
   enabled: false
+image:
+  tag: v1.7.2-rc1
