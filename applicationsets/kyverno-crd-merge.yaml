@@ -25,6 +25,7 @@ spec:
         path: '{{values.path}}'
       destination:
         name: '{{name}}'
+        namespace: kyverno
       syncPolicy:
         automated:
           prune: false
