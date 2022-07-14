@@ -4,9 +4,27 @@ metadata:
   name: kyverno-policies-merge
 spec:
   generators:
-    - clusters: 
-        values:
-          path: kyverno-policies/1.7.1
+    - merge:
+        mergeKeys:
+          - name
+        generators:
+          - clusters:
+              selector:
+                matchLabels:
+                  environmentId: dev
+                matchExpressions:
+                  - key: cluster
+                    operator: NotIn
+                    values:
+                      - vcluster-10
+              values:
+                path: kyverno-policies/1.7.1
+          - list:
+              elements:
+                - name: vcluster-15
+                  url: ''
+                  values:
+                    path: kyverno-policies/1.7.1
   template:
     metadata:
       name: 'kyverno-policies-me-{{name}}'
