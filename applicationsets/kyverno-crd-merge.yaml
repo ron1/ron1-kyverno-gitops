@@ -25,7 +25,6 @@ spec:
         path: '{{values.path}}'
       destination:
         name: '{{name}}'
-        namespace: kyverno
       syncPolicy:
         automated:
           prune: false
@@ -34,7 +33,7 @@ spec:
         syncOptions:
           - Validate=true
           - PrunePropagationPolicy=foreground
-          - CreateNamespace=true
+          - CreateNamespace=false
           - PruneLast=false
         retry:
           limit: 2
