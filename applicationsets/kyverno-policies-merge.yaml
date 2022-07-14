@@ -17,6 +17,9 @@ spec:
     spec:
       project: kyverno
       source:
+        helm:
+          fileParameters:
+            - path: values.yaml
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'
@@ -25,7 +28,7 @@ spec:
         namespace: kyverno
       syncPolicy:
         automated:
-          prune: false
+          prune: true
           selfHeal: true
           allowEmpty: false
         syncOptions:
