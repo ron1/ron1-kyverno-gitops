@@ -4,12 +4,9 @@ metadata:
   name: kyverno-merge
 spec:
   generators:
-    - list:
-        elements:
-          - name: in-cluster
-            url: 'https://kubernetes.default.svc'
-            values:
-              path: kyverno/1.7.1
+    - clusters: 
+        values:
+          path: kyverno/1.7.1
   template:
     metadata:
       name: 'kyverno-me-{{name}}'
