@@ -28,7 +28,7 @@ spec:
         namespace: kyverno
       syncPolicy:
         automated:
-          prune: true
+          prune: false
           selfHeal: true
           allowEmpty: false
         syncOptions:
