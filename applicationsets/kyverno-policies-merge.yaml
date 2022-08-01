@@ -11,12 +11,7 @@ spec:
           - clusters:
               selector:
                 matchLabels:
-                  environmentId: dev
-                matchExpressions:
-                  - key: cluster
-                    operator: NotIn
-                    values:
-                      - vcluster-10
+                  clusterId: in-cluster-local
               values:
                 path: kyverno-policies/1.7.1
           - list:
@@ -36,8 +31,8 @@ spec:
       project: kyverno
       source:
         helm:
-          fileParameters:
-            - path: values.yaml
+          valueFiles:
+          - values.yaml
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'

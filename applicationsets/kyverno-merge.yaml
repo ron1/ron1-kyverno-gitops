@@ -31,8 +31,8 @@ spec:
       project: kyverno
       source:
         helm:
-          fileParameters:
-            - path: values.yaml
+          valueFiles:
+          - values.yaml
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'
