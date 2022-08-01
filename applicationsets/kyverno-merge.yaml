@@ -11,20 +11,9 @@ spec:
           - clusters:
               selector:
                 matchLabels:
-                  environmentId: dev
-                matchExpressions:
-                  - key: cluster
-                    operator: NotIn
-                    values:
-                      - vcluster-10
+                  clusterId: in-cluster-local
               values:
                 path: kyverno/1.7.1
-          - list:
-              elements:
-                - name: vcluster-15
-                  url: ''
-                  values:
-                    path: kyverno/1.7.1
   template:
     metadata:
       name: 'kyverno-me-{{name}}'
