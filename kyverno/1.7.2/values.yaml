@@ -4,4 +4,4 @@ kyverno:
   serviceMonitor:
     enabled: true
   image:
-    tag: v1.7.1
+    tag: v1.7.2

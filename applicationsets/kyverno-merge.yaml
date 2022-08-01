@@ -14,6 +14,12 @@ spec:
                   clusterId: in-cluster-local
               values:
                 path: kyverno/1.7.1
+          - clusters:
+              selector:
+                matchLabels:
+                  unspecified: unspecified
+              values:
+                path: kyverno/1.7.2
   template:
     metadata:
       name: 'kyverno-me-{{name}}'
