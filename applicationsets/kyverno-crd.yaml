@@ -1,7 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: kyverno-policies-merge
+  annotations:
+    argocd.argoproj.io/sync-wave: "3001"
+  name: kyverno-crd
 spec:
   generators:
     - merge:
@@ -11,21 +13,33 @@ spec:
           - clusters:
               selector:
                 matchLabels:
-                  clusterId: in-cluster-local
+                  kyverno: enabled
+                matchExpressions:
+                  - key: clusterId
+                    operator: NotIn
+                    values:
+                      - c-build-3
+                  - key: environmentId
+                    operator: NotIn
+                    values:
+                      - dev
               values:
-                path: kyverno-policies/1.7.1
-          - list:
-              elements:
-                - name: vcluster-15
-                  url: ''
-                  values:
-                    path: kyverno-policies/1.7.1
+                path: kyverno-crd/1.7.1
+          - clusters:
+              selector:
+                matchLabels:
+                  clusterId: c-build-3
+              values:
+                path: kyverno-crd/1.7.2
   template:
     metadata:
-      name: 'kyverno-policies-me-{{name}}'
+      name: 'kyverno-crd-{{name}}'
       labels:
-        appset: kyverno-policies-merge
+        appset: kyverno-crd
+        clusterId: '{{metadata.labels.clusterId}}'
+        environmentId: '{{metadata.labels.environmentId}}'
       annotations:
+        argocd.argoproj.io/sync-wave: "3001"
         version: '{{values.path}}'
     spec:
       project: kyverno
