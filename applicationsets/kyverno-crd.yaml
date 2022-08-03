@@ -19,10 +19,6 @@ spec:
                     operator: NotIn
                     values:
                       - c-build-3
-                  - key: environmentId
-                    operator: NotIn
-                    values:
-                      - dev
               values:
                 path: kyverno-crd/1.7.1
           - clusters:

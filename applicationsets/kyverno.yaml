@@ -16,21 +16,32 @@ spec:
                   kyverno: enabled
                 matchExpressions:
                   - key: clusterId
-                    operator: NotIn
+                    operator: In
                     values:
-                      - c-build-3
-                  - key: environmentId
-                    operator: NotIn
-                    values:
-                      - dev
+                      - in-cluster-local
               values:
                 path: kyverno/1.7.1
+                valueFile: values-in-cluster-local.yaml
+          - clusters:
+              selector:
+                matchLabels:
+                  kyverno: enabled
+                matchExpressions:
+                  - key: clusterId
+                    operator: NotIn
+                    values:
+                      - in-cluster-local
+                      - c-build-3
+              values:
+                path: kyverno/1.7.1
+                valueFile: values.yaml
           - clusters:
               selector:
                 matchLabels:
                   clusterId: c-build-3
               values:
                 path: kyverno/1.7.2
+                valueFile: values.yaml
   template:
     metadata:
       name: 'kyverno-{{name}}'
@@ -46,7 +57,7 @@ spec:
       source:
         helm:
           valueFiles:
-          - values.yaml
+          - '{{values.valueFile}}'
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'
