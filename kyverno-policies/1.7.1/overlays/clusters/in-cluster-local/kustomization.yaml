@@ -1,0 +1,3 @@
+resources:
+- ../../../base
+- argo-cluster-generation-from-rancher-capi.yaml

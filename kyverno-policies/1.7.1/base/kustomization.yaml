@@ -1,0 +1,8 @@
+#helmCharts:
+#- name: kyverno-policies
+#  valuesInline:
+#    podSecurityStandard: "baseline"
+#    validationFailureAction: "audit"
+#  releaseName: kyverno-policies
+#  version: 2.5.1
+#  repo: https://kyverno.github.io/kyverno

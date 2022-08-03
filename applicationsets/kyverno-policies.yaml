@@ -15,13 +15,13 @@ spec:
                 matchLabels:
                   clusterId: in-cluster-local
               values:
-                path: kyverno-policies/1.7.1
+                path: kyverno-policies/1.7.1/overlays/clusters/in-cluster-local
           - clusters:
               selector:
                 matchLabels:
                   clusterId: c-build-3
               values:
-                path: kyverno-policies/1.7.1
+                path: kyverno-policies/1.7.1/base
   template:
     metadata:
       name: 'kyverno-policies-{{name}}'
@@ -35,9 +35,6 @@ spec:
     spec:
       project: kyverno
       source:
-        helm:
-          valueFiles:
-          - values.yaml
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'
