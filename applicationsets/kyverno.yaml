@@ -3,7 +3,7 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3002"
-  name: kyverno
+  name: kyverno-appset
 spec:
   generators:
     - merge:
@@ -15,6 +15,20 @@ spec:
                 matchExpressions:
                   - key: kyverno
                     operator: Exists
+                  - key: kyverno
+                    operator: In
+                    values:
+                      - dev
+                  - key: clusterId
+                    operator: In
+                    values:
+                      - in-cluster-local
+              values:
+                path: kyverno/1.7.2
+                valueFile: values-in-cluster-local.yaml
+          - clusters:
+              selector:
+                matchExpressions:
                   - key: kyverno
                     operator: NotIn
                     values:
@@ -28,14 +42,6 @@ spec:
                 valueFile: values-in-cluster-local.yaml
           - clusters:
               selector:
-                matchLabels:
-                  kyverno: dev
-                  clusterId: in-cluster-local
-              values:
-                path: kyverno/1.7.2
-                valueFile: values-in-cluster-local.yaml
-          - clusters:
-              selector:
                 matchExpressions:
                   - key: kyverno
                     operator: Exists
@@ -43,21 +49,8 @@ spec:
                     operator: NotIn
                     values:
                       - in-cluster-local
-                      - c-build-3
               values:
                 path: kyverno/1.7.1
-                valueFile: values.yaml
-          - clusters:
-              selector:
-                matchExpressions:
-                  - key: kyverno
-                    operator: Exists
-                  - key: clusterId
-                    operator: In
-                    values:
-                      - c-build-3
-              values:
-                path: kyverno/1.7.2
                 valueFile: values.yaml
   template:
     metadata:
@@ -74,8 +67,7 @@ spec:
       source:
         helm:
           valueFiles:
-          - values.yaml
-          #- '{{values.valueFile}}'
+          - '{{values.valueFile}}'
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'

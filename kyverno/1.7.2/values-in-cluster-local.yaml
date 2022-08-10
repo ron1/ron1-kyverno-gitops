@@ -1,6 +1,6 @@
 kyverno:
   installCRDs: true
-  replicaCount: 1
+#  replicaCount: 1
   serviceMonitor:
     enabled: false
   image:

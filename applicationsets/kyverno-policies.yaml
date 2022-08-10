@@ -3,7 +3,7 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3003"
-  name: kyverno-policies
+  name: kyverno-policies-appset
 spec:
   generators:
     - merge:
