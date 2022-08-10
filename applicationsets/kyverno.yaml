@@ -28,15 +28,9 @@ spec:
                 valueFile: values-in-cluster-local.yaml
           - clusters:
               selector:
-                matchExpressions:
-                  - key: kyverno
-                    operator: In
-                    values:
-                      - dev
-                  - key: clusterId
-                    operator: In
-                    values:
-                      - in-cluster-local
+                matchLabels:
+                  kyverno: dev
+                  clusterId: in-cluster-local
               values:
                 path: kyverno/1.7.2
                 valueFile: values-in-cluster-local.yaml
@@ -80,7 +74,8 @@ spec:
       source:
         helm:
           valueFiles:
-          - '{{values.valueFile}}'
+          - values.yaml
+          #- '{{values.valueFile}}'
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'
