@@ -2,6 +2,6 @@ kyverno:
   installCRDs: true
   replicaCount: 1
   serviceMonitor:
-    enabled: true
+    enabled: false
   image:
-    tag: v1.7.1
+    tag: v1.7.2

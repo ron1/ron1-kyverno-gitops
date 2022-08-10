@@ -1,5 +1,5 @@
 kyverno:
-  installCRDs: false
+  installCRDs: true
   replicaCount: 1
   serviceMonitor:
     enabled: true

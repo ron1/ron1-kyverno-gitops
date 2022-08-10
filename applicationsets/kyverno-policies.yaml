@@ -12,12 +12,18 @@ spec:
         generators:
           - clusters:
               selector:
+                matchExpressions:
+                  - key: kyverno
+                    operator: Exists
                 matchLabels:
                   clusterId: in-cluster-local
               values:
                 path: kyverno-policies/1.7.1/overlays/clusters/in-cluster-local
           - clusters:
               selector:
+                matchExpressions:
+                  - key: kyverno
+                    operator: Exists
                 matchLabels:
                   clusterId: c-build-3
               values:
