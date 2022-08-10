@@ -12,21 +12,24 @@ spec:
         generators:
           - clusters:
               selector:
-                matchLabels:
-                  kyverno: enabled
                 matchExpressions:
-                  - key: clusterId
-                    operator: NotIn
+                  - key: kyverno
+                    operator: In
                     values:
-                      - c-build-3
-              values:
-                path: kyverno-crd/1.7.1
-          - clusters:
-              selector:
-                matchLabels:
-                  clusterId: c-build-3
+                      - dev
               values:
                 path: kyverno-crd/1.7.2
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: kyverno
+                    operator: Exists
+                  - key: kyverno
+                    operator: NotIn
+                    values:
+                      - dev
+              values:
+                path: kyverno-crd/1.7.1
   template:
     metadata:
       name: 'kyverno-crd-{{name}}'
