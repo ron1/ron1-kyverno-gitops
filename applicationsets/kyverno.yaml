@@ -21,24 +21,12 @@ spec:
                     operator: In
                     values:
                       - in-cluster-local
-              values:
-                path: kyverno/1.7.2
-                valueFile: values-in-cluster-local.yaml
-          - clusters:
-              selector:
-                matchExpressions:
-                  - key: kyverno
-                    operator: Exists
-                  - key: kyverno
-                    operator: NotIn
-                    values:
-                      - dev
-                  - key: clusterId
+                  - key: clusterName
                     operator: In
                     values:
-                      - in-cluster-local
+                      - c-build-1
               values:
-                path: kyverno/1.7.1
+                path: kyverno/1.7.3
                 valueFile: values-in-cluster-local.yaml
           - clusters:
               selector:

@@ -10,15 +10,20 @@ spec:
         mergeKeys:
           - name
         generators:
+# Placeholder dummy cluster
           - clusters:
               selector:
                 matchExpressions:
                   - key: kyverno
-                    operator: In
+                    operator: DoesNotExist
+                  - key: kyverno
+                    operator: Exists
+                  - key: kyverno
+                    operator: NotIn
                     values:
                       - dev
               values:
-                path: kyverno-crd/1.7.2
+                path: kyverno-crd/1.7.1
           - clusters:
               selector:
                 matchExpressions:
