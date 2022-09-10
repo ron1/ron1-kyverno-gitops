@@ -6,4 +6,4 @@ kyverno:
   serviceMonitor:
     enabled: false
   image:
-    tag: v1.8.0
+    tag: v1.8.0-rc1

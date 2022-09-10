@@ -28,5 +28,6 @@ keywords:
 
 dependencies:
 - name: kyverno
-  version: 2.6.0
-  repository: https://kyverno.github.io/kyverno
+  version: 2.6.0-rc1
+  # repository: https://kyverno.github.io/kyverno
+  repository: file://local-chart
