@@ -1,9 +1,0 @@
-kyverno:
-  extraArgs: ["--clientRateLimitQPS=55", "--clientRateLimitBurst=99"]
-  createSelfSignedCert: true
-  installCRDs: true
-  replicaCount: 1
-  serviceMonitor:
-    enabled: true
-  image:
-    tag: v1.7.3

@@ -3,43 +3,48 @@ kind: ApplicationSet
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3001"
-  name: kyverno-crd
+  name: kyverno-merge
 spec:
   generators:
     - merge:
         mergeKeys:
           - name
         generators:
-# Placeholder dummy cluster
-          - clusters:
-              selector:
-                matchExpressions:
-                  - key: kyverno
-                    operator: DoesNotExist
-                  - key: kyverno
-                    operator: Exists
-                  - key: kyverno
-                    operator: NotIn
-                    values:
-                      - dev
-              values:
-                path: kyverno-crd/1.7.1
           - clusters:
               selector:
                 matchExpressions:
                   - key: kyverno
                     operator: Exists
-                  - key: kyverno
+                  - key: clusterId
                     operator: NotIn
                     values:
-                      - dev
+                      - in-cluster-local
               values:
-                path: kyverno-crd/1.7.1
+                path: kyverno/1.7.1
+                valueFile: values.yaml
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: kyverno
+                    operator: In
+                    values:
+                      - dev
+                  - key: clusterId
+                    operator: In
+                    values:
+                      - in-cluster-local
+                  - key: clusterName
+                    operator: In
+                    values:
+                      - c-build-1
+              values:
+                path: kyverno/1.8.0-rc1
+                valueFile: values-in-cluster-local.yaml
   template:
     metadata:
-      name: 'kyverno-crd-{{name}}'
+      name: 'kyverno-me-{{name}}'
       labels:
-        appset: kyverno-crd
+        appset: kyverno-merge
         clusterId: '{{metadata.labels.clusterId}}'
         environmentId: '{{metadata.labels.environmentId}}'
       annotations:
@@ -48,6 +53,9 @@ spec:
     spec:
       project: kyverno
       source:
+        helm:
+          valueFiles:
+          - '{{values.valueFile}}'
         repoURL: 'https://github.com/ron1/ron1-kyverno-gitops.git'
         targetRevision: HEAD
         path: '{{values.path}}'
@@ -64,6 +72,7 @@ spec:
           - PrunePropagationPolicy=foreground
           - CreateNamespace=true
           - PruneLast=true
+          - Replace=true # Set to workaround CRD annotation length issue until Server-side apply is available in Argo 2.5
         retry:
           limit: 2
           backoff:
