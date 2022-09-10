@@ -72,6 +72,7 @@ spec:
           - PrunePropagationPolicy=foreground
           - CreateNamespace=true
           - PruneLast=true
+          - Replace=true # Set to workaround CRD annotation length issue until Server-side apply is available in Argo 2.5
         retry:
           limit: 2
           backoff:
