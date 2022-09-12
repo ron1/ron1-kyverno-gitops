@@ -11,9 +11,6 @@ spec:
           - name
         generators:
           - clusters:
-              selector:
-                matchLabels:
-                  clusterId: c-build-3
               values:
                 path: kyverno-policies/1.7.1/base
           - clusters:

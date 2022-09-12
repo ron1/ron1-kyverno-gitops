@@ -10,18 +10,23 @@ spec:
         mergeKeys:
           - name
         generators:
+          # all clusters w/downstream valueFile
           - clusters:
-              selector:
-                matchExpressions:
-                  - key: kyverno
-                    operator: Exists
-                  - key: clusterId
-                    operator: NotIn
-                    values:
-                      - in-cluster-local
               values:
                 path: kyverno/1.7.1
                 valueFile: values.yaml
+          # in-cluster-local clusters w/mgmt valueFile
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: clusterId
+                    operator: In
+                    values:
+                      - in-cluster-local
+              values:
+                path: kyverno/1.8.0-rc1
+                valueFile: values-in-cluster-local.yaml
+          # kyverno: dev labeled clusters w/version 1.8.0-rc1
           - clusters:
               selector:
                 matchExpressions:
@@ -29,17 +34,12 @@ spec:
                     operator: In
                     values:
                       - dev
-                  - key: clusterId
-                    operator: In
-                    values:
-                      - in-cluster-local
                   - key: clusterName
                     operator: In
                     values:
-                      - c-build-1
+                      - c-build-2
               values:
                 path: kyverno/1.8.0-rc1
-                valueFile: values-in-cluster-local.yaml
   template:
     metadata:
       name: 'kyverno-me-{{name}}'
