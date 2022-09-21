@@ -24,9 +24,9 @@ spec:
                     values:
                       - in-cluster-local
               values:
-                path: kyverno/1.8.0-rc1
+                path: kyverno/1.8.0-rc2
                 valueFile: values-in-cluster-local.yaml
-          # kyverno: dev labeled clusters w/version 1.8.0-rc1
+          # kyverno: dev labeled clusters w/version 1.8.0-rc2
           - clusters:
               selector:
                 matchExpressions:
@@ -39,7 +39,7 @@ spec:
                     values:
                       - c-build-2
               values:
-                path: kyverno/1.8.0-rc1
+                path: kyverno/1.8.0-rc2
   template:
     metadata:
       name: 'kyverno-me-{{name}}'
